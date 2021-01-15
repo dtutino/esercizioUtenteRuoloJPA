@@ -59,6 +59,9 @@ public class ManyToManyTest {
 //				utenteServiceInstance.aggiungiRuolo(utenteDaDb4, ruoloDaDb2);
 //			}
 			
+			// AGGIUNGO UN RUOLO AD UN UTENTE
+//			utenteServiceInstance.aggiungiRuolo(utenteServiceInstance.caricaSingoloElemento(3L), ruoloServiceInstance.caricaSingoloElemento(2L));
+			
 //			// provo a eliminare un utente
 //			utenteServiceInstance.rimuovi(utenteDaDb4);
 
@@ -83,8 +86,8 @@ public class ManyToManyTest {
 //			ruoloServiceInstance.aggiorna(ruoloDaDb);
 			
 			// provo a rimuovere un ruolo 
-//			Ruolo ruoloDaDb2 = ruoloServiceInstance.caricaSingoloElemento(1L);
-//			ruoloServiceInstance.rimuovi(ruoloDaDb2);
+			Ruolo ruoloDaDb2 = ruoloServiceInstance.caricaSingoloElemento(1L);
+			ruoloServiceInstance.rimuovi(ruoloServiceInstance.caricaSingoloElemento(2L));
 			
 
 		} catch (Exception e) {

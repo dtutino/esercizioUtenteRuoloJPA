@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import it.manytomanyjpamaven.dao.EntityManagerUtil;
+import it.manytomanyjpamaven.dao.MyDAOFactory;
 import it.manytomanyjpamaven.dao.RuoloDAO;
 import it.manytomanyjpamaven.dao.UtenteDAO;
-import it.manytomanyjpamaven.dao.UtenteDAOImpl;
 import it.manytomanyjpamaven.model.Ruolo;
 import it.manytomanyjpamaven.model.Utente;
 
@@ -108,21 +108,53 @@ public class RuoloServiceImpl implements RuoloService {
 
 	}
 
+//	@Override
+//	public void rimuovi(Ruolo ruoloInstance) throws Exception {
+//		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+//		UtenteDAO utenteDAO=new UtenteDAOImpl();
+//
+//		try {
+//
+//			entityManager.getTransaction().begin();
+//			
+//			utenteDAO.setEntityManager(entityManager);
+//
+//			List<Utente> lista = utenteDAO.findAllByRuolo(ruoloInstance);
+//			
+//			for (Utente utenteItem : lista) {
+//				utenteItem.getRuoli().remove(ruoloInstance);
+//				utenteDAO.update(utenteItem);
+//			}
+//
+//			ruoloDAO.setEntityManager(entityManager);
+//			
+//			ruoloDAO.delete(ruoloInstance);
+//			
+//			entityManager.getTransaction().commit();
+//		
+//		} catch (Exception e) {
+//			entityManager.getTransaction().rollback();
+//			e.printStackTrace();
+//			throw e;
+//		}
+//	}
+	
 	@Override
 	public void rimuovi(Ruolo ruoloInstance) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
-		UtenteDAO utenteDAO=new UtenteDAOImpl();
+		
 
 		try {
 
 			entityManager.getTransaction().begin();
 			
+			UtenteDAO utenteDAO = MyDAOFactory.getUtenteDAOInstance();
 			utenteDAO.setEntityManager(entityManager);
 
 			List<Utente> lista = utenteDAO.findAllByRuolo(ruoloInstance);
 			
 			for (Utente utenteItem : lista) {
-				utenteItem.getRuoli().remove(ruoloInstance);
+				utenteItem.removeFromRuoli(ruoloInstance);
 				utenteDAO.update(utenteItem);
 			}
 
@@ -130,7 +162,7 @@ public class RuoloServiceImpl implements RuoloService {
 			
 			ruoloDAO.delete(ruoloInstance);
 			
-			entityManager.getTransaction().commit();
+			entityManager.getTransaction().commit();			
 		
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

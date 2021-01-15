@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "utente")
 public class Utente {
@@ -128,6 +129,10 @@ public class Utente {
 	public String toString() {
 		return "Utente [id=" + id + ", username=" + username + ", password=" + password + ", nome=" + nome
 				+ ", cognome=" + cognome + ", dateCreated=" + dateCreated + "]";
+	}
+	
+	public void removeFromRuoli(Ruolo ruoloInstance) {
+		this.ruoli.remove(ruoloInstance);
 	}
 
 }
